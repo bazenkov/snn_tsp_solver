@@ -25,5 +25,5 @@ class NoiseGenerator:
             return distance / max_distance
         return 1
 
-    def gen_noise(self, distance: int, max_distance: int, t: int):
+    def gen_noise(self, distance: int, max_distance: int, t: int) -> torch.Tensor:
         return self.temp * self.path_noise(distance, max_distance) * self.time_noise(t)

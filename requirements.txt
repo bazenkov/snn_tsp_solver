@@ -1,2 +1,5 @@
 lava-dl==0.6.0
 tqdm==4.67.0
+numpy~=1.26.4
+torch~=2.3.1
+matplotlib~=3.9.2
