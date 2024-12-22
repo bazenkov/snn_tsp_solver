@@ -5,6 +5,8 @@ from torch import Tensor
 from src.DTO.path_data import PathData
 
 RESULT_DIR = Path(__file__).parents[1] / "results"
+if not RESULT_DIR.exists():
+    RESULT_DIR.mkdir()
 
 
 class DataMonitor:
