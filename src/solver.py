@@ -3,7 +3,9 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .neurons import PossibleNeuronModels
+from .data_monitor import DataMonitor
+from src.DTO.neurons import PossibleNeuronModels
+from .DTO.path_data import PathData
 from .solver_model import TSPModel
 
 
@@ -47,16 +49,14 @@ class TSPSolver:
             numb_of_cities=self.numb_of_cities,
             feedback_coefficient=feedback_coefficient,
             weights=torch_path_data,
-            data=self.data,
             neuron_model=neuron_model,
             temp=self.temperature,
-            data_name=self.data_name,
+            data_monitor=DataMonitor(self.numb_of_cities, self.data_name),
+            path_data=PathData(self.numb_of_cities, self.data),
         )
 
         return model
 
-    def solve(self, time: int, epoch: int = 1):
-        for i in range(epoch):
-            print(f"epoch {i + 1}")
-            self.solver_model.solve(time=time)
-            self.solver_model.clear()
+    def solve(self, time: int) -> None:
+        self.solver_model.solve(time=time)
+        self.solver_model.data_monitor.close()

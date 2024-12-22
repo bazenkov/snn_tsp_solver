@@ -10,5 +10,4 @@ class BlockCommutator:
         self.data[port] = bias
 
     def get_bias(self, port: int) -> torch.Tensor:
-        res = torch.sum(self.data, dim=0) - self.data[port]
-        return res
+        return torch.sum(self.data, dim=0) - self.data[port]

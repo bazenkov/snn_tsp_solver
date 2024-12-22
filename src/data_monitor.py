@@ -2,6 +2,8 @@ from pathlib import Path
 
 from torch import Tensor
 
+from src.DTO.path_data import PathData
+
 RESULT_DIR = Path(__file__).parents[1] / "results"
 
 
@@ -18,13 +20,13 @@ class DataMonitor:
 
     def save_wta_inference(self, data: Tensor, block_number: int) -> None:
         self.files[block_number].write(
-            ", ".join(map(str, data[0, :, 0].tolist())) + "\n"
+            ", ".join(map(str, data[0, :, -1].tolist())) + "\n"
         )
 
-    def save_model_inference(self, path: list[int], distance: float) -> None:
-        self.res.write(str(f"{path} {distance}\n"))
+    def save_model_inference(self, path_data: PathData) -> None:
+        self.res.write(str(f"{path_data.path} {path_data.distance}\n"))
 
-    def __del__(self) -> None:
+    def close(self) -> None:
         for f in self.files:
             f.close()
         self.res.close()

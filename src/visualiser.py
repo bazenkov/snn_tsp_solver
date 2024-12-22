@@ -16,7 +16,7 @@ class Visualiser:
         spikes = spikes.T
         offsets = list(range(1, len(spikes) + 1))
 
-        data = [[item * j for j, item in enumerate(line) if item] for line in spikes]
+        data = [[j for j, item in enumerate(line) if item] for line in spikes]
 
         plt.eventplot(positions=data, lineoffsets=offsets, linelengths=0.5)
         plt.title(f"WTA block №{block_number + 1}")
